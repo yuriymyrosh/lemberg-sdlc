@@ -26,12 +26,12 @@ function copyFiles() {
   try {
     const packageRoot = path.resolve(__dirname, '..');
     const sourceDir = path.join(packageRoot, '_github');
-    const destinationDir = path.join(packageRoot, '.github');
+    const destinationDir = path.join(packageRoot, '..', '..', '.github');
 
-    // if (!fs.existsSync(sourceDir)) {
-    //   console.log('Папка "_github" не знайдена у вашому npm-пакеті');
-    //   return;
-    // }
+    if (!fs.existsSync(sourceDir)) {
+      console.log('Папка "_github" не знайдена у вашому npm-пакеті');
+      return;
+    }
 
     fs.mkdirSync(destinationDir, { recursive: true });
     copyFilesRecursive(sourceDir, destinationDir);
