@@ -1,0 +1,9 @@
+{
+  "name": "lemberg-js-template",
+  "description": "Package with SDLC arthefacts for Lemberg Solutions JavaScript Department (lembergsolutions.com)",
+  "version": "1.0.0",
+  "author": "Yurii Myrosh <yuriy.myrosh@lembergsolutions.com>",
+  "devDependencies": {
+    "fs-extra": "^11.1.1"
+  }
+}
