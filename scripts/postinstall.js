@@ -1,16 +1,15 @@
 const fs = require('fs');
 const path = require('path');
-const pkgDir = require('pkg-dir');
-const { copyFileSync, ensureDirSync } = require('fs-extra');
+const { copyFileSync, ensureDirSync } = require('fs');
 
-async function copyFiles() {
+function copyFiles() {
   try {
-    const packageRoot = await pkgDir(__dirname);
+    const packageRoot = __dirname;
     const sourceDir = path.join(packageRoot, '_github');
     const destinationDir = path.join(packageRoot, '.github');
 
     if (!fs.existsSync(sourceDir)) {
-      console.log('Directory "_github" was not found in your pakage');
+      console.log('Папка "_github" не знайдена у вашому npm-пакеті');
       return;
     }
 
@@ -25,10 +24,10 @@ async function copyFiles() {
         copyFilesRecursive(sourceFilePath, destinationFilePath);
       } else {
         if (fs.existsSync(destinationFilePath)) {
-          console.log(`File "${file}" already exists in project`);
+          console.log(`Файл "${file}" вже існує в корені проекту`);
         } else {
           copyFileSync(sourceFilePath, destinationFilePath);
-          console.log(`File "${file}" has been added to project`);
+          console.log(`Файл "${file}" скопійовано в корінь проекту`);
         }
       }
     });
