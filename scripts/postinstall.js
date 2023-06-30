@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const { copyFileSync, ensureDirSync } = require('fs-extra');
 
-const sourceDir = path.join(__dirname, '_github');
+const sourceDir = path.join(__dirname, '..', 'node_modules', 'lemberg-sdlc', '_github');
 const destinationDir = path.join(__dirname, '..', '.github');
 
 function copyFiles(sourcePath, destinationPath) {
