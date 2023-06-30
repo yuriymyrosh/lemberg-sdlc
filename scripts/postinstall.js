@@ -1,6 +1,26 @@
 const fs = require('fs');
 const path = require('path');
-const { copyFileSync, ensureDirSync } = require('fs');
+
+function copyFilesRecursive(sourceDir, destinationDir) {
+  const files = fs.readdirSync(sourceDir);
+
+  files.forEach((file) => {
+    const sourceFilePath = path.join(sourceDir, file);
+    const destinationFilePath = path.join(destinationDir, file);
+
+    if (fs.statSync(sourceFilePath).isDirectory()) {
+      fs.mkdirSync(destinationFilePath, { recursive: true });
+      copyFilesRecursive(sourceFilePath, destinationFilePath);
+    } else {
+      if (fs.existsSync(destinationFilePath)) {
+        console.log(`Файл "${file}" вже існує в корені проекту`);
+      } else {
+        fs.copyFileSync(sourceFilePath, destinationFilePath);
+        console.log(`Файл "${file}" скопійовано в корінь проекту`);
+      }
+    }
+  });
+}
 
 function copyFiles() {
   try {
@@ -13,24 +33,8 @@ function copyFiles() {
       return;
     }
 
-    const files = fs.readdirSync(sourceDir);
-
-    files.forEach((file) => {
-      const sourceFilePath = path.join(sourceDir, file);
-      const destinationFilePath = path.join(destinationDir, file);
-
-      if (fs.statSync(sourceFilePath).isDirectory()) {
-        ensureDirSync(destinationFilePath);
-        copyFilesRecursive(sourceFilePath, destinationFilePath);
-      } else {
-        if (fs.existsSync(destinationFilePath)) {
-          console.log(`Файл "${file}" вже існує в корені проекту`);
-        } else {
-          copyFileSync(sourceFilePath, destinationFilePath);
-          console.log(`Файл "${file}" скопійовано в корінь проекту`);
-        }
-      }
-    });
+    fs.mkdirSync(destinationDir, { recursive: true });
+    copyFilesRecursive(sourceDir, destinationDir);
   } catch (error) {
     console.error('Помилка:', error);
   }
