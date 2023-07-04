@@ -13,10 +13,10 @@ function copyFilesRecursive(sourceDir, destinationDir) {
       copyFilesRecursive(sourceFilePath, destinationFilePath);
     } else {
       if (fs.existsSync(destinationFilePath)) {
-        console.log(`Файл "${file}" вже існує в корені проекту`);
+        console.log(`File "${file}" already exist`);
       } else {
         fs.copyFileSync(sourceFilePath, destinationFilePath);
-        console.log(`Файл "${file}" скопійовано в корінь проекту`);
+        console.log(`File "${file}" was copied succesfully`);
       }
     }
   });
@@ -29,14 +29,14 @@ function copyFiles() {
     const destinationDir = path.join(packageRoot, '..', '..', '.github');
 
     if (!fs.existsSync(sourceDir)) {
-      console.log('Папка "_github" не знайдена у вашому npm-пакеті');
+      console.log('Folder "_github" was not found in your npm module');
       return;
     }
 
     fs.mkdirSync(destinationDir, { recursive: true });
     copyFilesRecursive(sourceDir, destinationDir);
   } catch (error) {
-    console.error('Помилка:', error);
+    console.error('Error:', error);
   }
 }
 
