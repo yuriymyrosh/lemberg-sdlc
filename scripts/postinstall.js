@@ -22,14 +22,13 @@ function copyFilesRecursive(sourceDir, destinationDir) {
   });
 }
 
-function copyFiles() {
+function copyFiles(sourceDir, destinationDir) {
   try {
     const packageRoot = path.resolve(__dirname, '..');
-    const sourceDir = path.join(packageRoot, '_github');
-    const destinationDir = path.join(packageRoot, '..', '..', '.github');
+    
 
     if (!fs.existsSync(sourceDir)) {
-      console.log('Folder "_github" was not found in your npm module');
+      console.log(`Folder "${sourceDir}" was not found in your npm module`);
       return;
     }
 
@@ -40,4 +39,6 @@ function copyFiles() {
   }
 }
 
-copyFiles();
+copyFiles(path.join(packageRoot, '_github'), path.join(packageRoot, '..', '..', '.github'));
+copyFiles(path.join(packageRoot, '_husky'), path.join(packageRoot, '..', '..', '.husky'));
+copyFiles(path.join(packageRoot, 'commitlint.config.js'), path.join(packageRoot, '..', '..', 'commitlint.config.js'));

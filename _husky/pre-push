@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+chmod 755 .husky/check_branch_naming.sh && sh .husky/check_branch_naming.sh
