@@ -24,9 +24,6 @@ function copyFilesRecursive(sourceDir, destinationDir) {
 
 function copyFiles(sourceDir, destinationDir) {
   try {
-    const packageRoot = path.resolve(__dirname, '..');
-    
-
     if (!fs.existsSync(sourceDir)) {
       console.log(`Folder "${sourceDir}" was not found in your npm module`);
       return;
@@ -38,6 +35,8 @@ function copyFiles(sourceDir, destinationDir) {
     console.error('Error:', error);
   }
 }
+
+const packageRoot = path.resolve(__dirname, '..');
 
 copyFiles(path.join(packageRoot, '_github'), path.join(packageRoot, '..', '..', '.github'));
 copyFiles(path.join(packageRoot, '_husky'), path.join(packageRoot, '..', '..', '.husky'));
